@@ -32,7 +32,9 @@ namespace sysEventos.API
                 //Referência do Banco de Dados
                 context =>context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
+            
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "sysEventos.API", Version = "v1" });
@@ -54,6 +56,8 @@ namespace sysEventos.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(cors => cors.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
